@@ -21,6 +21,9 @@ NEWSPIDER_MODULE = 'document_crawler.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+LOG_LEVEL = 'ERROR'
+FEED_EXPORT_ENCODING = 'utf-8'
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -88,3 +91,10 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+# FEED_URI = 'output.jl'
+# FEED_FORMAT = 'jsonlines'
+# FEED_EXPORTERS = {
+#     'jsonlines': 'scrapy.exporters.JsonLinesItemExporter',
+# }
