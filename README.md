@@ -56,3 +56,22 @@ $ scrapy crawl echr -a limit=100 -o output_path/output_file.jl
 
 To change the number of sentences stored in each file, edit the constant `MAX_SENTENCES_PER_FILE` in the `pipeline.py` file.
 
+
+## Postprocess
+To prepare the documents to be input to a NLP system, we provide some scripts. For example, to extract pos tags and transform the sentences to a tsv format run:
+```
+$ scripts/to_conll.py --input_filepath="original_file.jl" --output_filepath="output_file.conll"
+```
+
+
+## Rquirements
+
+The NLTK library requires the dowload of tokenizer package. In iptyhon console run:
+
+```
+>>> import nltk
+>>> nltk.download('averaged_perceptron_tagger')
+>>> nltk.dowload('punkt')
+```
+
+See `requirements.txt` for general python requirements.
