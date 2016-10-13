@@ -6,6 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import jsonlines
+from scrapy.exceptions import DropItem
 
 
 DEFAULT_OUTPUT_FILEPATH = 'output'
@@ -39,7 +40,6 @@ class MultipleJsonLinePipeline(object):
         """Method called when the spider is opened. Opens output file."""
         self.base_output_filename = getattr(spider, 'output_path',
                                             DEFAULT_OUTPUT_FILEPATH)
-        print self.base_output_filename
         self._reopen_writer()
 
     def close_spider(self, _):
@@ -48,6 +48,8 @@ class MultipleJsonLinePipeline(object):
 
     def process_item(self, item, _):
         """Saves each produced item."""
+        if len(item['sentences']) == 0:
+            raise DropItem(u'No sentences in document {}'.format(item['name']))
         self.current_sentences_count += len(item['sentences'])
         self.writer.write(dict(item))
         if self.current_sentences_count > MAX_SENTENCES_PER_FILE:

@@ -1,6 +1,6 @@
 # European Court of Human Rights (ECHR) dataset
 
-Crawler project in Python to download documents from the European Court of Human Rights site and extract clean text.
+Crawler project in Python to download documents from the European Court of Human Rights site and extract clean text and metadata.
 
 The base site we are querying is http://hudoc.echr.coe.int/eng. Only document
 in English will be downloaded.
@@ -24,6 +24,14 @@ The files are extracted by default in jsonlines format. See the **Set output pat
  - originatingbody
  - application
  - title: Scraped title of the document.
+
+
+## Extract raw text only
+The json files can be converted to a list of documents with the following command:
+```
+$ jq -r '.sentences | .+ ["***DOCUMENT END***"] | .[]' output_file.jl
+```
+where the string `***DOCUMENT END***` will be added at the end of each document.
 
 ## Limit number of documents
 Optionally, you can pass a limit argument that indicated the number of documents to download.
