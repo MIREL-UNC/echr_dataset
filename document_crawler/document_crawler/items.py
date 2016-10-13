@@ -8,7 +8,7 @@ class Document(scrapy.Item):
     """Abstraction of a ECHR scraped document."""
     name = scrapy.Field()
     doctype = scrapy.Field()
-    raw_text = scrapy.Field()
+    sentences = scrapy.Field()
     original_id = scrapy.Field()
     language = scrapy.Field()
     conclusion = scrapy.Field()

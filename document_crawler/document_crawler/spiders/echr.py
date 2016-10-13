@@ -107,5 +107,5 @@ class EchrSpider(scrapy.Spider):
                      if span != u'\xa0' and span != '']
             if len(spans):
                 paragraphs.append(u' '.join(spans))
-        document['raw_text'] = u'\n'.join(paragraphs)
+        document['sentences'] = paragraphs
         yield document

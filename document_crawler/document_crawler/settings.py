@@ -65,11 +65,11 @@ FEED_EXPORT_ENCODING = 'utf-8'
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
-# Configure item pipelines
+# Configure item pipelineelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'document_crawler.pipelines.SomePipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'document_crawler.pipelines.MultipleJsonLinePipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
