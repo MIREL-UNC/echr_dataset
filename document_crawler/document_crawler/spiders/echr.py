@@ -81,7 +81,6 @@ class EchrSpider(scrapy.Spider):
                 info = 'Case {} not in ENG, original language {}'.format(
                     document['name'].encode('utf-8'),
                     result['columns']['languageisocode'])
-                logging.debug(info)
                 continue
             doc_url = self.base_document_url.format(document['original_id'])
             new_request = scrapy.Request(doc_url, callback=self.parse_document)

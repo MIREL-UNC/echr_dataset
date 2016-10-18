@@ -6,6 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import jsonlines
+import logging
 from scrapy.exceptions import DropItem
 
 
@@ -20,6 +21,7 @@ class MultipleJsonLinePipeline(object):
         # Number of sentences written in the current file
         self.current_sentences_count = 0
         self.current_file_number = 0
+        self.item_counter = 0
         # Json line writer
         self.writer = None
         # Base path of the outout file. Each output file will be generated
@@ -48,10 +50,17 @@ class MultipleJsonLinePipeline(object):
 
     def process_item(self, item, _):
         """Saves each produced item."""
+        self.item_counter += 1
+        if not self.item_counter % 10000:
+            logging.info('Processing document number {}'.format(
+                self.item_counter))
         if len(item['sentences']) == 0:
             raise DropItem(u'No sentences in document {}'.format(item['name']))
         self.current_sentences_count += len(item['sentences'])
         self.writer.write(dict(item))
         if self.current_sentences_count > MAX_SENTENCES_PER_FILE:
+            self.current_senteces_count = 0
+            logging.info('Saving to new file ({})'.format(
+                self.current_file_number))
             self._reopen_writer()
         return item
