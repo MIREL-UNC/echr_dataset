@@ -7,7 +7,6 @@
 
 import jsonlines
 import logging
-from scrapy.exceptions import DropItem
 
 
 DEFAULT_OUTPUT_FILEPATH = 'output'
@@ -55,11 +54,13 @@ class MultipleJsonLinePipeline(object):
             logging.info('Processing document number {}'.format(
                 self.item_counter))
         if len(item['sentences']) == 0:
-            raise DropItem(u'No sentences in document {}'.format(item['name']))
+            logging.info(u'No sentences in document {} {}'.format(
+                item['name'], item['original_id']))
+            return
         self.current_sentences_count += len(item['sentences'])
         self.writer.write(dict(item))
         if self.current_sentences_count > MAX_SENTENCES_PER_FILE:
-            self.current_senteces_count = 0
+            self.current_sentences_count = 0
             logging.info('Saving to new file ({})'.format(
                 self.current_file_number))
             self._reopen_writer()

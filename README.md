@@ -64,14 +64,14 @@ $ scripts/to_conll.py --input_filepath="original_file.jl" --output_filepath="out
 ```
 
 
-## Rquirements
+## Requirements
 
 The NLTK library requires the dowload of tokenizer package. In iptyhon console run:
 
 ```
 >>> import nltk
 >>> nltk.download('averaged_perceptron_tagger')
->>> nltk.dowload('punkt')
+>>> nltk.download('punkt')
 ```
 
 See `requirements.txt` for general python requirements.
