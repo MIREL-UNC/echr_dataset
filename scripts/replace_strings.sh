@@ -24,7 +24,7 @@ for filename in $1/*.txt; do
     matches=$(grep -o -P "(EUR|€|£|RUB|LTL|TRL|CZK)(\s)*([0-9]+,)*[0-9]+\.*[0-9]+" $filename | wc -l);
     echo -ne $matches " + ";
     grep -o -P "([0-9]+,)*[0-9]+\.*[0-9]+(\seuros|\sroubles|\sTurkish liras|\skorunas)(\s\(EUR\)|\s\(RUB\)|\s\(TRL\)|\s\(TRY\)|\s\(CZK\))?" $filename | wc -l;
-    sed -i -E "s/(EUR|€|£|RUB|LTL|TRL|CZK)(\s)*([0-9]+,)*[0-9]+\.*[0-9]+/MONEY_EXP/g" $filename
+    sed -i -E "s/(EUR|€|£|RUB|LTL|TRL|CZK|HUF)(\s)*([0-9]+,)*[0-9]+\.*[0-9]+/MONEY_EXP/g" $filename
     sed -i -E "s/([0-9]+,)*[0-9]+\.*[0-9]+(\seuros|\sroubles|\sTurkish liras|\skorunas)(\s\(EUR\)|\s\(RUB\)|\s\(TRL\)|\s\(TRY\)|\s\(CZK\))?/MONEY_EXP/g" $filename
 
     # Replacing case references like no. 58985/04 for CASE_REF
