@@ -1,13 +1,14 @@
 #!/bin/bash
 # Makes various replacements to the files to reduce vocabulary size.
 # The first argument is the name of the directory that contains the input files
-# with extension .txt
 [ $# -ge 1 ]
-for filename in $1/*.txt; do
+for filename in $1/*; do
     echo 'File ' $filename;
     echo -ne "\tReplacing numbers and dots at start of line. Matches: ";
     grep -o -P "^[0-9]+\.\s*" $filename | wc -l;
     sed -i -E "s/^[0-9]+\.\s*//g" $filename;
+    grep -o -P "\"[0-9]+\.\s*" $filename | wc -l;
+    sed -i -E "s/\"[0-9]+\.\s*/\"/g" $filename;
 
     # Replacing Article references like Article 47 for ARTICLE_REF
     echo -ne "\tReplacing article references. Matches: ";
