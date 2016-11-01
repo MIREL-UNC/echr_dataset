@@ -3,7 +3,7 @@
 import argparse
 import jsonlines
 import logging
-logging.basicConfig(level=logging.INFO, filename='.log-preprocess')
+logging.basicConfig(level=logging.INFO, filename='.log-bow')
 import numpy
 import os
 import pickle
