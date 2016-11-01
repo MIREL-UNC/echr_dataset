@@ -50,7 +50,7 @@ class MultipleJsonLinePipeline(object):
     def process_item(self, item, _):
         """Saves each produced item."""
         self.item_counter += 1
-        if not self.item_counter % 10000:
+        if not self.item_counter % 1000:
             logging.info('Processing document number {}'.format(
                 self.item_counter))
         if len(item['sentences']) == 0:
