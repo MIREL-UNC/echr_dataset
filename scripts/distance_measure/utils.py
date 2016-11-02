@@ -35,7 +35,7 @@ def get_input_files(input_dirpath, pattern):
 
 def read_echr_documents(input_dirpath):
     """Returns a list of documents"""
-    filepaths = get_input_files(input_dirpath, r'.*jl')
+    filepaths = get_input_files(input_dirpath, r'.*jl.sample')
     result = []
     for filepath in filepaths:
         total_docs = get_document_number(filepath)
@@ -95,6 +95,7 @@ def evaluate(classifier, x_matrix, y_vector):
 
 def save_tsne(x_matrix, y_vector, output_filename):
     """Transforms x_matrix in 2D with tsne and saves it in output_filename."""
+    logging.info('Calculating t-sne vectors.')
     tsne_model = TSNE(n_components=2)
     if x_matrix.shape[0] > MAX_TSNE_SAMPLE:
         vectors = x_matrix[:MAX_TSNE_SAMPLE].toarray()
@@ -103,6 +104,8 @@ def save_tsne(x_matrix, y_vector, output_filename):
         vectors = x_matrix.toarray()
         labels = y_vector
     vectors = tsne_model.fit_transform(vectors)
+
+    logging.info('Saving t-sne vectors')
     with open(output_filename, 'w') as output_file:
         output = {'vectors': vectors, 'labels': labels}
         pickle.dump(output, output_file)
