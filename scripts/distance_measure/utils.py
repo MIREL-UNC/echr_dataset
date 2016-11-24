@@ -35,7 +35,7 @@ def get_input_files(input_dirpath, pattern):
 
 def read_echr_documents(input_dirpath):
     """Returns a list of documents"""
-    filepaths = get_input_files(input_dirpath, r'.*jl.sample')
+    filepaths = get_input_files(input_dirpath, r'.*jl')
     result = []
     for filepath in filepaths:
         total_docs = get_document_number(filepath)
@@ -98,11 +98,13 @@ def save_tsne(x_matrix, y_vector, output_filename):
     logging.info('Calculating t-sne vectors.')
     tsne_model = TSNE(n_components=2)
     if x_matrix.shape[0] > MAX_TSNE_SAMPLE:
-        vectors = x_matrix[:MAX_TSNE_SAMPLE].toarray()
+        vectors = x_matrix[:MAX_TSNE_SAMPLE]
         labels = y_vector[:MAX_TSNE_SAMPLE]
     else:
-        vectors = x_matrix.toarray()
+        vectors = x_matrix
         labels = y_vector
+    if hasattr(vectors, 'toarray'):
+        vectors = vectors.toarray()
     vectors = tsne_model.fit_transform(vectors)
 
     logging.info('Saving t-sne vectors')

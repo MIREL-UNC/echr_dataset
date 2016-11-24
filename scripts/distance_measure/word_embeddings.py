@@ -4,7 +4,7 @@
 import argparse
 import gensim
 import logging
-logging.basicConfig(level=logging.INFO, filename='.log-bow')
+logging.basicConfig(level=logging.INFO, filename='.log-w2v')
 import numpy
 
 import utils
@@ -43,7 +43,8 @@ def get_document_vectors(x_matrix, w2v_model):
         vector = numpy.zeros((w2v_model.layer1_size,))
         words = word_tokenize(sentence)
         for word in words:
-            vector += w2v_model[word]
+            if word in w2v_model:
+                vector += w2v_model[word]
         result.append(vector)
     return numpy.vstack(result)
 
