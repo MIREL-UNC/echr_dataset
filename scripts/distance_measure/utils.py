@@ -35,7 +35,7 @@ def get_input_files(input_dirpath, pattern):
 
 def read_echr_documents(input_dirpath):
     """Returns a list of documents"""
-    filepaths = get_input_files(input_dirpath, r'.*jl.sample')
+    filepaths = get_input_files(input_dirpath, r'.*jl')
     result = []
     for filepath in filepaths:
         total_docs = get_document_number(filepath)

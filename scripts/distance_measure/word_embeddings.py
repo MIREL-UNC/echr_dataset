@@ -44,6 +44,7 @@ def get_document_vectors(x_matrix, w2v_model):
         words = word_tokenize(sentence)
         for word in words:
             vector += w2v_model[word]
+        vector /= len(words)
         result.append(vector)
     return numpy.vstack(result)
 
