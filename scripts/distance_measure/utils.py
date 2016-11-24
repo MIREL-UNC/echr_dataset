@@ -88,7 +88,11 @@ def evaluate(classifier, x_matrix, y_vector):
     logging.info('Training classifier')
     classifier.fit(x_train, y_train)
 
-    logging.info('Getting predictions')
+    logging.info('Train performance')
+    predictions = classifier.predict(x_train)
+    log_report(predictions, y_train)
+
+    logging.info('Test performance')
     predictions = classifier.predict(x_test)
     log_report(predictions, y_test)
 

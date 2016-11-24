@@ -10,7 +10,7 @@ import numpy
 import utils
 
 from nltk.tokenize import word_tokenize
-from sklearn.linear_model import SGDClassifier
+from sklearn.linear_model import SGDClassifier, LogisticRegression
 from tqdm import tqdm
 
 
@@ -32,6 +32,8 @@ def parse_arguments():
                         'a generic gensim model.')
     parser.add_argument('--model_filepath', type=unicode,
                         help='File path of the word vector model.')
+    parser.add_argument('--lr', action="store_true",
+                        help='Use logistic regression classifier')
 
     return parser.parse_args()
 
@@ -61,7 +63,8 @@ def main():
     x_matrix, y_vector = utils.read_datasets(args.echr_dirpath,
                                              args.wiki_filepath)
 
-    logging.info('Reading word vectors')
+    logging.info('Reading word vectors from file {}'.format(
+        args.model_filepath))
     if args.gensim_save:
         w2v_model = gensim.utils.SaveLoad.load(args.model_filepath)
     else:
@@ -73,8 +76,11 @@ def main():
     del x_matrix
     del w2v_model
 
-    classifier = SGDClassifier(loss='hinge', penalty='l2', alpha=1e-2,
-                               n_iter=5, random_state=42, n_jobs=-1)
+    if args.lr:
+        classifier = LogisticRegression()
+    else:
+        classifier = SGDClassifier(loss='hinge', penalty='l2', alpha=1e-2,
+                                   n_iter=5, random_state=42, n_jobs=-1)
 
     utils.evaluate(classifier, transformed_matrix, y_vector)
 
