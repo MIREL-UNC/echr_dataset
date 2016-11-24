@@ -42,9 +42,13 @@ def get_document_vectors(x_matrix, w2v_model):
     for sentence in tqdm(x_matrix, total=x_matrix.shape[0]):
         vector = numpy.zeros((w2v_model.layer1_size,))
         words = word_tokenize(sentence)
+        used_words = 0
         for word in words:
             if word in w2v_model:
                 vector += w2v_model[word]
+                used_words += 1
+        if used_words:
+            vector /= used_words
         result.append(vector)
     return numpy.vstack(result)
 
